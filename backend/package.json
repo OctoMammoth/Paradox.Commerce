@@ -1,0 +1,49 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "description": "NodeJS Server",
+  "main": "src/index.js",
+  "author": "OctoM",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "deploy": "NODE_ENV=production pm2 start --attach src/index.js",
+    "deploy-dev": "NODE_ENV=development pm2 start --attach src/index.js",
+    "build": "npx prisma migrate dev",
+    "generate": "node generate.js"
+},
+"dependencies": {
+    "@graphql-tools/merge": "^8.2.1",
+    "@graphql-tools/schema": "^8.3.1",
+    "@paljs/admin": "^4.0.13",
+    "@paljs/generator": "^4.0.12",
+    "@paljs/plugins": "^4.0.8",
+    "@paljs/schema": "^4.0.6",
+    "@prisma/client": "^3.3.0",
+    "apollo-datasource-rest": "^3.3.0",
+    "apollo-server-cache-redis": "^3.2.0",
+    "apollo-server-core": "^3.4.0",
+    "apollo-server-express": "^3.4.0",
+    "apollo-server-plugin-response-cache": "3.0.2",
+    "apollo-server-types": "^3.3.0",
+    "axios": "^0.24.0",
+    "bcryptjs": "^2.4.3",
+    "cuid": "^2.1.8",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^16.0.0",
+    "graphql-middleware": "^6.1.11",
+    "graphql-shield": "^7.5.0",
+    "graphql-tag": "^2.12.5",
+    "graphql-upload": "^12.0.0",
+    "ioredis": "^4.28.0",
+    "jsonwebtoken": "^8.5.1",
+    "randomatic": "^3.1.1",
+    "sms_ru": "^0.0.1"
+},
+"devDependencies": {
+    "nodemon": "^2.0.14",
+    "prisma": "^3.3.0"
+}
+}
