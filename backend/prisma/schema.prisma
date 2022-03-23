@@ -7,10 +7,70 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  phone     String?    @unique
-  email     String?
+// model User {
+//   id        String    @id @default(cuid())
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   phone     String?    @unique
+//   email     String?
+// }
+
+model Point {
+  id      String  @id @default(cuid())
+  address String
+  lat     Float
+  lng     Float
+  fn      String
+  owner   String
+  checks  Check[]
+}
+
+model Check {
+  id         String   @id @default(cuid())
+  fd         String
+  cashier    String
+  fpd        String
+  givenDate  DateTime
+  userInn    String
+  inn        String?
+  shiftDocId String
+  shiftId    String
+  type       String
+
+  summ       Float
+  checkouts Checkout[]
+
+  Point   Point  @relation(fields: [pointId], references: [id])
+  pointId String
+}
+
+model Checkout {
+  id    String @id @default(cuid())
+  count Float
+  isCash Boolean
+
+  position   Position @relation(fields: [positionId], references: [id])
+  positionId String
+  price      Price    @relation(fields: [priceId], references: [id])
+  priceId    String
+  Check      Check?   @relation(fields: [checkId], references: [id])
+  checkId    String?
+}
+
+model Position {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  actualPrice Price      @relation("actual", fields: [priceId], references: [id])
+  priceId     String
+  prices      Price[]
+  checkouts   Checkout[]
+}
+
+model Price {
+  id    String @id @default(cuid())
+  value Float
+
+  positions    Position[]
+  actualPrices Position[] @relation("actual")
+  checkouts    Checkout[]
 }

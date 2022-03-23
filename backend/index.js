@@ -11,12 +11,13 @@ const { PrismaSelect } = require('@paljs/plugins')
 const Redis = require('ioredis')
 const dotenv = require('dotenv')
 const jwt = require('jsonwebtoken')
+const SMSru = require('sms_ru');
 
-const { typeDefs } = require('./graphql/typeDefs')
-const { resolvers } = require('./graphql/resolvers')
-const { permissions } = require('./utils/permissions')
-const { checkRole } = require('./utils/auth')
-// const { DataSourceAPI } = require('./utils/api')
+const { typeDefs } = require('./src/graphql/typeDefs')
+const { resolvers } = require('./src/graphql/resolvers')
+const { permissions } = require('./src/utils/permissions')
+const { checkRole } = require('./src/utils/auth')
+const { BiletDoApi } = require('./src/utils/api')
 
 dotenv.config()
 
@@ -46,7 +47,9 @@ const startServer = async () => {
     const server = new ApolloServer({
         schema: applyMiddleware(schema, selects, permissions),
         context: async (ctx) => {
-            const { authorization } = ctx.req.headers
+            console.log(ctx.req.headers)
+            const { authorization, sessionid } = ctx.req.headers
+            const sms = new SMSru(process.env.SMS_RU);
             const token = authorization ? authorization.replace('Bearer ', '') : ''
             const verify = await jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
                 if (err) {
@@ -66,9 +69,10 @@ const startServer = async () => {
                 return find
             }
             return {
-                sessionId,
+                sessionid,
                 prisma,
                 verify,
+                sms,
                 checkToken
             }
         },
@@ -81,9 +85,9 @@ const startServer = async () => {
         cache: new BaseRedisCache({
             client: redis
         }),
-        // dataSources: () => ({
-        //     dataSource: new DataSourceAPI()
-        // })
+        dataSources: () => ({
+            biletDoApi: new BiletDoApi()
+        })
     })
     await server.start()
     const app = express()

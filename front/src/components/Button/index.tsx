@@ -11,6 +11,7 @@ type Props = {
    stroke?: boolean
    disabled?: boolean
    shadow?: boolean
+   secondory?: boolean
    onPress?: (event: GestureResponderEvent) => void,
    textStyle?: TextStyle
 }
@@ -22,6 +23,7 @@ const Button = ({
    stroke = true,
    disabled = false,
    shadow = false,
+   secondory = false,
    onPress,
    textStyle,
 }: Props) => {
@@ -34,12 +36,12 @@ const Button = ({
          onPress={onPress}
          style={{
             backgroundColor: fill
-               ? ColorSheet.buttonBackgroundColor
-               : ColorSheet.backgroundColor,
+               ? secondory ? ColorSheet.secondoryButtonColor : ColorSheet.buttonBackgroundColor
+               : 'rgba(0,0,0,0)',
             opacity: disabled ? 0.5 : 1,
 
             borderWidth: 1.5,
-            borderColor: stroke ? ColorSheet.buttonBackgroundColor : 'rgba(0,0,0,0)',
+            borderColor: stroke ? fill ? secondory ? ColorSheet.secondoryButtonColor : ColorSheet.buttonBackgroundColor : secondory ? ColorSheet.textColor : ColorSheet.buttonStroke : 'rgba(0,0,0,0)',
             borderRadius: 10,
 
             paddingVertical: 12,
@@ -54,13 +56,14 @@ const Button = ({
             shadowOpacity: shadow ? 0.18 : undefined,
             shadowRadius: shadow ? 1 : undefined,
 
-            elevation: 2,
+            elevation: shadow ? 2 : 0,
             ...style,
          }}>
          <Text
             style={{
                textAlign: 'center',
-               color: fill ? 'white' : ColorSheet.buttonBackgroundColor,
+               fontWeight: '700',
+               color: secondory ? ColorSheet.textColor : fill ? 'white' : stroke ? ColorSheet.buttonStroke : secondory ? ColorSheet.textColor : ColorSheet.buttonBackgroundColor,
                ...textStyle
             }}>
             {children}

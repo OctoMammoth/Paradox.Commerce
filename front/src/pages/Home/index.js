@@ -13,6 +13,7 @@ import Colors from '../../colors'
 import Button from '../../components/Button'
 import Icon from '../../components/Icon'
 import Text from '../../components/Text'
+import TextInput from '../../components/TextInput'
 
 const Home = ({navigation}) => {
    const isDarkMode = useColorScheme() === 'dark'
@@ -23,9 +24,9 @@ const Home = ({navigation}) => {
 
    return (
       <SafeAreaView style={[backgroundStyle, styles.wrapper]}>
-         <View>
-            <Text>Home Screen</Text>
-            <TouchableOpacity
+         <View style={{marginHorizontal: 16}}>
+            {/* <Text>Home Screen</Text> */}
+            {/* <TouchableOpacity
                style={{
                   backgroundColor: ColorSheet.buttonBackgroundColor,
                   marginHorizontal: 16,
@@ -42,10 +43,26 @@ const Home = ({navigation}) => {
                   })
                }}>
                <Text>Toast</Text>
-            </TouchableOpacity>
-            <Button style={{marginTop: 32}} onPress={() => {
+            </TouchableOpacity> */}
+            <Button style={{marginTop: 32, marginBottom: 24}} onPress={() => {
                navigation.push("Camera")
-            }}>Go to QR Reader</Button>
+            }}>QR-код ридер</Button>
+            <Button
+               style={{ marginBottom: 24}}
+               onPress={() => {
+                  navigation.push('Scraping', {
+                     jsonData: {
+                        fn: '9960440300550955',
+                        fp: '910249113',
+                        i: '44377',
+                        n: '1',
+                        s: '983.00',
+                        t: '20220321T1521',
+                     },
+                  })
+               }}>
+               Тестовый чек
+            </Button>
          </View>
       </SafeAreaView>
    )
