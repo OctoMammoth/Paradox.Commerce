@@ -1,5 +1,5 @@
 import React from 'react'
-import {SafeAreaView, useColorScheme, View} from 'react-native'
+import {SafeAreaView, TouchableOpacity, useColorScheme, View} from 'react-native'
 import Colors from '../../colors'
 import Icon from '../../components/Icon'
 import TabBar from '../../components/TabBar'
@@ -28,7 +28,8 @@ const UserProfile = ({navigation}) => {
                      marginHorizontal: 16,
                      marginTop: 28,
                   }}>
-                  <View
+                  <TouchableOpacity
+                     onPress={() => {navigation.push("Main")}}
                      style={{
                         backgroundColor: ColorSheet.modalBackground,
                         width: 96,
@@ -39,7 +40,7 @@ const UserProfile = ({navigation}) => {
                         marginRight: 17,
                      }}>
                      <Text style={{fontWeight: '700', fontSize: 32}}>ЕН</Text>
-                  </View>
+                  </TouchableOpacity>
                   <View style={{flex: 1, justifyContent: 'center'}}>
                      <Text style={{fontSize: 18, fontWeight: '700'}}>
                         Егоров Никита

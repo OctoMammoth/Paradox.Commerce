@@ -5,11 +5,11 @@ const Checkout = gql`
     id: String!
     count: Float!
     isCash: Boolean!
+    time: DateTime!
     position: Position!
     positionId: String!
-    price: Price!
-    priceId: String!
-    Check: Check
+    price: Float!
+    check: Check
     checkId: String
   }
 

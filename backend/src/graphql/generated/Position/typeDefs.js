@@ -4,16 +4,6 @@ const Position = gql`
   type Position {
     id: String!
     name: String!
-    actualPrice: Price!
-    priceId: String!
-    prices(
-      where: PriceWhereInput
-      orderBy: PriceOrderByWithRelationInput
-      cursor: PriceWhereUniqueInput
-      take: Int
-      skip: Int
-      distinct: PriceScalarFieldEnum
-    ): [Price!]!
     checkouts(
       where: CheckoutWhereInput
       orderBy: CheckoutOrderByWithRelationInput

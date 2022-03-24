@@ -21,7 +21,7 @@ const Check = gql`
       skip: Int
       distinct: CheckoutScalarFieldEnum
     ): [Checkout!]!
-    Point: Point!
+    point: Point!
     pointId: String!
     _count: CheckCountOutputType!
   }

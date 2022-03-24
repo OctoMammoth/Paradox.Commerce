@@ -37,40 +37,28 @@ model Check {
   shiftId    String
   type       String
 
-  summ       Float
+  summ      Float
   checkouts Checkout[]
 
-  Point   Point  @relation(fields: [pointId], references: [id])
+  point   Point  @relation(fields: [pointId], references: [id])
   pointId String
 }
 
 model Checkout {
-  id    String @id @default(cuid())
-  count Float
+  id     String  @id @default(cuid())
+  count  Float
   isCash Boolean
+  time   DateTime
 
   position   Position @relation(fields: [positionId], references: [id])
   positionId String
-  price      Price    @relation(fields: [priceId], references: [id])
-  priceId    String
-  Check      Check?   @relation(fields: [checkId], references: [id])
+  price      Float
+  check      Check?   @relation(fields: [checkId], references: [id])
   checkId    String?
 }
 
 model Position {
-  id          String     @id @default(cuid())
-  name        String     @unique
-  actualPrice Price      @relation("actual", fields: [priceId], references: [id])
-  priceId     String
-  prices      Price[]
-  checkouts   Checkout[]
-}
-
-model Price {
-  id    String @id @default(cuid())
-  value Float
-
-  positions    Position[]
-  actualPrices Position[] @relation("actual")
-  checkouts    Checkout[]
+  id        String     @id @default(cuid())
+  name      String     @unique
+  checkouts Checkout[]
 }

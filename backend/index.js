@@ -47,7 +47,6 @@ const startServer = async () => {
     const server = new ApolloServer({
         schema: applyMiddleware(schema, selects, permissions),
         context: async (ctx) => {
-            console.log(ctx.req.headers)
             const { authorization, sessionid } = ctx.req.headers
             const sms = new SMSru(process.env.SMS_RU);
             const token = authorization ? authorization.replace('Bearer ', '') : ''

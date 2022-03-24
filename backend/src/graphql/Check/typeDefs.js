@@ -15,10 +15,20 @@ const typeDefs = gql`
         shiftDocId: String!
         title: String!
         userInn: String!
+        cart: [Item]
+        cash: Float!
+        notCash: Float!
+        sum: Float!
+    }
+    input Item {
+        count: Int!
+        name: String!
+        nds: String!
+        price: Float!
     }
 
     type Mutation {
-        compareCheck:Boolean
+        compareCheck(scrapped: CompareCheckInput!):Boolean
     }
 `
 
