@@ -4,7 +4,8 @@ import {onError} from '@apollo/client/link/error'
 import {createUploadLink} from 'apollo-upload-client'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const url = "http://194.67.90.189/graphql"
+// export const url = "http://194.67.90.189/graphql"
+export const url = "https://gisit.3limbs.ml/graphql"
 
 const authLink = setContext(async (_, { headers }) => {
     const token = await AsyncStorage.getItem('token')

@@ -11,6 +11,9 @@ import Colors from '../../colors'
 import Text from '../../components/Text'
 import * as cheerio from 'cheerio'
 import Button from '../../components/Button'
+import { useMutation } from '@apollo/client'
+import { COMPARE_DATA } from '../../graphql/CompareData'
+import client from '../../apollo'
 
 const Scraping = ({
    navigation,
@@ -238,7 +241,7 @@ const Scraping = ({
             ...pageData,
             cart,
             cash,
-            notcash,
+            notCash:notcash,
             sum: parseFloat(cart
                ?.reduce(
                   (prev, current) => prev + current.price * current.count,
@@ -253,12 +256,24 @@ const Scraping = ({
       }
    }
 
+   const [compareData, { data, loading, error }] = useMutation(COMPARE_DATA, {})
+
    onSubmit = () => {
-      useMutation()
+      compareData({
+         variables: {
+            scrapped: page
+         },
+         onCompleted: (res) => {
+            navigation.popToTop()
+         }
+      })
    }
 
    React.useEffect(() => {
       getData()
+      client.refetchQueries({
+         include: ["CheckMap"]
+      })
    }, [])
 
    return (
@@ -486,7 +501,7 @@ const Scraping = ({
                paddingHorizontal: 16,
                paddingBottom: 16,
             }}>
-            <Button onPress={getData}>Отправить</Button>
+            <Button onPress={onSubmit} disabled={page ? false : true}>Отправить</Button>
          </SafeAreaView>
       </SafeAreaView>
    )

@@ -19,6 +19,9 @@ export type RootStackParamList = {
    Camera: undefined
    Favorite: undefined
    UserProfile: undefined
+   Market: {
+      id: string
+   }
    Captcha: {
       jsonData: JsonDataType
    }

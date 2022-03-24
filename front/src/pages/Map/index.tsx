@@ -1,8 +1,10 @@
+import {useLazyQuery} from '@apollo/client'
 import React from 'react'
 import {View, SafeAreaView, StyleSheet, useColorScheme} from 'react-native'
-import {YaMap, CameraPosition} from 'react-native-yamap'
+import {YaMap, CameraPosition, Marker, Point} from 'react-native-yamap'
 import Colors from '../../colors'
 import Text from '../../components/Text'
+import {FIND_POINTS_LL} from '../../graphql/Point/queries'
 
 const Map = () => {
    const isDarkMode = useColorScheme() === 'dark'
@@ -20,15 +22,23 @@ const Map = () => {
       })
    }
 
+
    //onInit
    React.useEffect(() => {
       map.current?.setCenter({lon: 129.732663, lat: 62.028103})
       map.current?.setZoom(13)
+      
    }, [])
 
    return (
       <SafeAreaView>
-         <YaMap ref={map} style={{height: '100%'}} showUserPosition nightMode={isDarkMode}></YaMap>
+         <YaMap
+            ref={map}
+            style={{height: '100%'}}
+            showUserPosition
+            nightMode={isDarkMode}>
+               
+            </YaMap>
       </SafeAreaView>
    )
 }

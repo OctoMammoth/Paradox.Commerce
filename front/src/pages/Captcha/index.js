@@ -81,6 +81,7 @@ const Captcha = ({
          })
       }
       if (data.status === 200) {
+         setDisabled(false)
          navigation.push('Scraping', {jsonData})
       }
    }
