@@ -28,7 +28,7 @@ const Map = () => {
 
    return (
       <SafeAreaView>
-         <YaMap ref={map} style={{height: '100%'}} showUserPosition></YaMap>
+         <YaMap ref={map} style={{height: '100%'}} showUserPosition nightMode={isDarkMode}></YaMap>
       </SafeAreaView>
    )
 }

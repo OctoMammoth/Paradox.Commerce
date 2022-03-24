@@ -1,9 +1,11 @@
 const { resolvers: generated } = require('./generated/resolvers')
-const { resolvers: User } = require("./User")
+// const { resolvers: User } = require("./User")
+const { resolvers: Check } = require("./Check")
 
 const resolvers = [
     ...generated,
-    User
+    // User,
+    Check,
 ]
 
 module.exports = { resolvers }
