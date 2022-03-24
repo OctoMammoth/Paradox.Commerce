@@ -16,6 +16,7 @@ import { RootStackParamList } from './rootStackParamList'
 import { useColorScheme } from 'react-native'
 import Favorite from '../pages/Favorite'
 import UserProfile from '../pages/UserProfile'
+import Market from '../pages/Market'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -94,6 +95,15 @@ export const RootStackNav = () => {
             <Stack.Screen
                name="Captcha"
                component={Captcha}
+               options={
+                  {
+                     // animation: 'slide_from_bottom'
+                  }
+               }
+            />
+            <Stack.Screen
+               name="Market"
+               component={Market}
                options={
                   {
                      // animation: 'slide_from_bottom'
